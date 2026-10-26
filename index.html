@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alyha Print - Tienda de productos geek: mugs, mousepads, cuadros metálicos y camisetas con diseños anime">
+    <meta name="theme-color" content="#1a0033">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Alyha Print - Tienda Geek de Anime y Videojuegos</title>
+
+    <style>
+        /* ======================================
+           VARIABLES DE DISEÑO - EDITA AQUÍ
+           ====================================== */
+        :root {
+            --color-primary: #D4A5D9;
+            --color-secondary: #C5B3E8;
+            --color-accent: #B8D4E8;
+            --color-dark: #FAF8F3;
+            --color-darker: #F5F0E8;
+            --color-bg: #FDFBF7;
+            --color-text: #2C2C2C;
+            --color-text-muted: #6B6B6B;
+            --color-border: #E8DFE8;
+            --color-shadow: rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ======================================
+           RESET Y ESTILOS GLOBALES
+           ====================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ======================================
+           CABECERA Y NAVEGACIÓN
+           ====================================== */
+        header {
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 8px var(--color-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* <!-- EDITA AQUÍ: Logo y nombre de la tienda --> */
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--color-secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Menú responsivo */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--color-text);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ======================================
+           BANNER PROMOCIONAL
+           ====================================== */
+        /* <!-- EDITA AQUÍ: Texto del banner promocional --> */
+        .promo-banner {
+            background: var(--color-primary);
+            padding: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        /* ======================================
+           SECCIÓN HERO
+           ====================================== */
+        .hero {
+            background: linear-gradient(135deg, rgba(212, 165, 217, 0.08) 0%, rgba(184, 212, 232, 0.08) 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(197, 179, 232, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* <!-- EDITA AQUÍ: Título y descripción principal --> */
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: capitalize;
+            letter-spacing: 0px;
+            color: var(--color-text);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ======================================
+           MAIN CONTENT
+           ====================================== */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* ======================================
+           SECCIÓN DE CATEGORÍAS Y PRODUCTOS
+           ====================================== */
+        .products-section {
+            margin-bottom: 4rem;
+        }
+
+        /* <!-- EDITA AQUÍ: Títulos de categorías --> */
+        .category-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--color-border);
+            letter-spacing: 0px;
+            color: var(--color-text);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        /* ======================================
+           TARJETAS DE PRODUCTOS
+           ====================================== */
+        .product-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 2px 8px var(--color-shadow);
+        }
+
+        .product-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(212, 165, 217, 0.15);
+            transform: translateY(-6px);
+        }
+
+        .product-image-container {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #F5F0E8 0%, #FAF8F3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        /* <!-- EDITA AQUÍ: Imágenes de productos (reemplaza el placeholder) --> */
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-image-placeholder {
+            width: 80%;
+            height: 80%;
+            background: linear-gradient(135deg, rgba(212, 165, 217, 0.3), rgba(184, 212, 232, 0.3));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(197, 179, 232, 0.5);
+            font-weight: 700;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.75rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* <!-- EDITA AQUÍ: Nombres de productos --> */
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+            text-transform: capitalize;
+            letter-spacing: 0px;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        /* <!-- EDITA AQUÍ: Precios --> */
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ======================================
+           BOTONES DE COMPRA
+           ====================================== */
+        /* <!-- EDITA AQUÍ: Número de WhatsApp - Reemplaza +573332434973 con tu número --> */
+        .btn-whatsapp {
+            background: var(--color-primary);
+            border: none;
+            color: white;
+            padding: 0.95rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(212, 165, 217, 0.25);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            background: var(--color-secondary);
+            box-shadow: 0 8px 20px rgba(212, 165, 217, 0.35);
+        }
+
+        .btn-whatsapp:active {
+            transform: translateY(0px);
+        }
+
+        /* ======================================
+           FOOTER
+           ====================================== */
+        footer {
+            background: var(--color-darker);
+            border-top: 1px solid var(--color-border);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* <!-- EDITA AQUÍ: Información del footer --> */
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: var(--color-text);
+        }
+
+        .social-icon:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(157, 0, 255, 0.3);
+        }
+
+        /* ======================================
+           RESPONSIVE DESIGN
+           ====================================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: var(--color-bg);
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+                padding: 1rem;
+                border-bottom: 1px solid var(--color-border);
+                max-height: 0;
+                overflow: hidden;
+                transition: var(--transition);
+            }
+
+            .nav-menu.active {
+                max-height: 400px;
+            }
+
+            .nav-menu a {
+                padding: 1rem;
+                display: block;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .nav-menu a::after {
+                display: none;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+                letter-spacing: 2px;
+            }
+
+            .promo-banner {
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+
+            .footer-links {
+                gap: 1rem;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .category-title {
+                font-size: 1.4rem;
+            }
+
+            .product-price {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ======================================
+           ANIMACIONES
+           ====================================== */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: slideIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- ======================================
+         CABECERA Y NAVEGACIÓN
+         ====================================== -->
+    <header>
+        <nav class="navbar">
+            <!-- <!-- EDITA AQUÍ: Logo - Cambia el texto "ALYHA" si lo deseas --> -->
+            <div class="logo">ALYHA</div>
+
+            <!-- <!-- EDITA AQUÍ: Menú de navegación - Puedes agregar más opciones --> -->
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+
+            <!-- Menú hamburguesa para móviles -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- <!-- EDITA AQUÍ: Banner promocional - Cambia el texto y ofertas --> -->
+    <div class="promo-banner">
+        🎨 DESCUENTO: Compra 3 productos y obtén 15% de descuento 🎨
+    </div>
+
+    <!-- ======================================
+         SECCIÓN HERO
+         ====================================== -->
+    <div class="hero" id="inicio">
+        <div class="hero-content">
+            <!-- <!-- EDITA AQUÍ: Título y descripción del hero --> -->
+            <h1>Bienvenido a Alyha Print</h1>
+            <p>Productos geek de calidad: Mugs, Mousepads, Cuadros Metálicos y Camisetas con diseños anime y de videojuegos.</p>
+        </div>
+    </div>
+
+    <!-- ======================================
+         CONTENIDO PRINCIPAL
+         ====================================== -->
+    <main id="productos">
+        <!-- ======================================
+             SECCIÓN 1: MUGS
+             ====================================== -->
+        <section class="products-section">
+            <h2 class="category-title">☕ Mugs</h2>
+            <div class="products-grid" id="mugs-container">
+                <!-- Los mugs se generarán con JavaScript -->
+            </div>
+        </section>
+
+        <!-- ======================================
+             SECCIÓN 2: MOUSEPADS
+             ====================================== -->
+        <section class="products-section">
+            <h2 class="category-title">🖱️ Mousepads</h2>
+            <div class="products-grid" id="mousepads-container">
+                <!-- Los mousepads se generarán con JavaScript -->
+            </div>
+        </section>
+
+        <!-- ======================================
+             SECCIÓN 3: CUADROS METÁLICOS
+             ====================================== -->
+        <section class="products-section">
+            <h2 class="category-title">🖼️ Cuadros Metálicos</h2>
+            <div class="products-grid" id="cuadros-container">
+                <!-- Los cuadros se generarán con JavaScript -->
+            </div>
+        </section>
+
+        <!-- ======================================
+             SECCIÓN 4: CAMISETAS
+             ====================================== -->
+        <section class="products-section">
+            <h2 class="category-title">👕 Camisetas</h2>
+            <div class="products-grid" id="camisetas-container">
+                <!-- Las camisetas se generarán con JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================================
+         FOOTER
+         ====================================== -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <!-- <!-- EDITA AQUÍ: Información de contacto en el footer --> -->
+            <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Contacto</h3>
+
+            <div class="footer-text">
+                📧 Email: contacto@alyha.com<br>
+                📱 WhatsApp: +57 300 123 4567
+            </div>
+
+            <!-- <!-- EDITA AQUÍ: Enlaces principales del footer --> -->
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#productos">Productos</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+
+            <!-- <!-- EDITA AQUÍ: Enlaces a redes sociales - Agrega tus URLs --> -->
+            <div class="footer-social">
+                <a href="https://instagram.com/alyhaprint" target="_blank" class="social-icon" title="Instagram">📷</a>
+                <a href="https://tiktok.com/@alyhaprint" target="_blank" class="social-icon" title="TikTok">▶️</a>
+                <a href="https://facebook.com/alyhaprint" target="_blank" class="social-icon" title="Facebook">f</a>
+            </div>
+
+            <div class="footer-copyright">
+                © 2024-2026 Alyha Print. Todos los derechos reservados. | Diseño hecho con ❤️ para geeks
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ======================================
+        // DATOS DE PRODUCTOS
+        // ======================================
+        // <!-- EDITA AQUÍ: Base de datos de productos
+        //      Formato:
+        //      {
+        //          name: "Nombre del producto",
+        //          description: "Descripción corta",
+        //          price: "15.000", (en COP o tu moneda)
+        //          emoji: "☕" (emojis para el placeholder de imagen),
+        //          image: "URL_de_imagen_aqui" (opcional: reemplaza con tu URL de imagen)
+        //      }
+        // -->
+        const products = {
+            mugs: [
+                {
+                    name: "Mug Anime Clásico",
+                    description: "Mug blanco de cerámica con diseño anime premium",
+                    price: "45.000",
+                    emoji: "☕"
+                },
+                {
+                    name: "Mug Gamer",
+                    description: "Mug térmico para mantener tu bebida caliente",
+                    price: "55.000",
+                    emoji: "🎮"
+                },
+                {
+                    name: "Mug Neon Abyss",
+                    description: "Mug con efecto glow en la oscuridad",
+                    price: "65.000",
+                    emoji: "💜"
+                },
+                {
+                    name: "Mug Personalizador",
+                    description: "Mug personalizable con tu diseño",
+                    price: "70.000",
+                    emoji: "✨"
+                }
+            ],
+            mousepads: [
+                {
+                    name: "Mousepad RGB",
+                    description: "Mousepad grande con luces LED RGB",
+                    price: "85.000",
+                    emoji: "🖱️"
+                },
+                {
+                    name: "Mousepad Anime",
+                    description: "Mousepad con diseño anime de alta calidad",
+                    price: "50.000",
+                    emoji: "🎨"
+                },
+                {
+                    name: "Mousepad Gaming",
+                    description: "Mousepad profesional para gaming",
+                    price: "75.000",
+                    emoji: "🎯"
+                },
+                {
+                    name: "Mousepad Extendido",
+                    description: "Mousepad grande para teclado y ratón",
+                    price: "95.000",
+                    emoji: "📏"
+                }
+            ],
+            cuadros: [
+                {
+                    name: "Cuadro Metálico Cyberpunk",
+                    description: "Placa metálica con diseño cyberpunk neon",
+                    price: "120.000",
+                    emoji: "🌃"
+                },
+                {
+                    name: "Cuadro Anime Clásico",
+                    description: "Placa metálica con escena de anime",
+                    price: "100.000",
+                    emoji: "🎭"
+                },
+                {
+                    name: "Cuadro Gaming Legend",
+                    description: "Placa de metal con iconos de videojuegos",
+                    price: "130.000",
+                    emoji: "👾"
+                },
+                {
+                    name: "Cuadro Personalizado",
+                    description: "Placa metálica con tu imagen personalizada",
+                    price: "150.000",
+                    emoji: "🎬"
+                }
+            ],
+            camisetas: [
+                {
+                    name: "Camiseta Anime Vibes",
+                    description: "Camiseta 100% algodón con diseño anime",
+                    price: "65.000",
+                    emoji: "👕"
+                },
+                {
+                    name: "Camiseta Gamer Pro",
+                    description: "Camiseta técnica para gamers",
+                    price: "75.000",
+                    emoji: "🎮"
+                },
+                {
+                    name: "Camiseta Neon City",
+                    description: "Camiseta con print neon luminoso",
+                    price: "85.000",
+                    emoji: "🌟"
+                },
+                {
+                    name: "Camiseta Edición Limitada",
+                    description: "Camiseta limited edition con diseño exclusivo",
+                    price: "95.000",
+                    emoji: "🔥"
+                }
+            ]
+        };
+
+        // ======================================
+        // CONFIGURACIÓN DE WHATSAPP
+        // ======================================
+        // <!-- EDITA AQUÍ: Tu número de WhatsApp
+        //      Formato: +57 (Colombia) + 10 dígitos
+        //      Ejemplo: +573001234567 (sin espacios ni caracteres especiales)
+        // -->
+        const WHATSAPP_NUMBER = "573001234567"; // Reemplaza con tu número
+
+        // ======================================
+        // FUNCIÓN PARA CREAR TARJETA DE PRODUCTO
+        // ======================================
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+
+            // Crear mensaje para WhatsApp
+            const message = encodeURIComponent(
+                `Hola, me interesa el producto:\n\n` +
+                `📦 ${product.name}\n` +
+                `💰 Precio: $${product.price} COP\n\n` +
+                `¿Cuál es la disponibilidad?`
+            );
+            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+
+            card.innerHTML = `
+                <div class="product-image-container">
+                    <div class="product-image-placeholder">${product.emoji}</div>
+                    <!-- <!-- EDITA AQUÍ: Para agregar imágenes reales, reemplaza el div anterior con:
+                         <img src="URL_DE_TU_IMAGEN" alt="${product.name}" class="product-image">
+                         Ejemplo: <img src="images/mug-anime.jpg" alt="${product.name}" class="product-image">
+                    --> -->
+                </div>
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-price">$${product.price} COP</div>
+                    <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">
+                        💬 Comprar por WhatsApp
+                    </a>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // ======================================
+        // RENDERIZAR PRODUCTOS
+        // ======================================
+        function renderProducts() {
+            // Renderizar Mugs
+            const mugsContainer = document.getElementById('mugs-container');
+            products.mugs.forEach(product => {
+                mugsContainer.appendChild(createProductCard(product));
+            });
+
+            // Renderizar Mousepads
+            const mousepadsContainer = document.getElementById('mousepads-container');
+            products.mousepads.forEach(product => {
+                mousepadsContainer.appendChild(createProductCard(product));
+            });
+
+            // Renderizar Cuadros
+            const cuadrosContainer = document.getElementById('cuadros-container');
+            products.cuadros.forEach(product => {
+                cuadrosContainer.appendChild(createProductCard(product));
+            });
+
+            // Renderizar Camisetas
+            const camisetasContainer = document.getElementById('camisetas-container');
+            products.camisetas.forEach(product => {
+                camisetasContainer.appendChild(createProductCard(product));
+            });
+        }
+
+        // ======================================
+        // MENÚ HAMBURGUESA RESPONSIVO
+        // ======================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Renderizar productos
+            renderProducts();
+
+            // Funcionalidad del menú hamburguesa
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // Cerrar menú al hacer clic en un enlace
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+
+            // Cerrar menú al hacer clic fuera
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navMenu.contains(event.target);
+                const isClickOnHamburger = hamburger.contains(event.target);
+
+                if (!isClickInsideNav && !isClickOnHamburger && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // ======================================
+        // SERVICE WORKER PARA PWA
+        // ======================================
+        // <!-- EDITA AQUÍ: Registrar Service Worker
+        //      El service worker permite que la aplicación funcione offline
+        // -->
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(
+                    function(registration) {
+                        console.log('Service Worker registrado correctamente', registration);
+                    },
+                    function(err) {
+                        console.log('Error al registrar Service Worker:', err);
+                    }
+                );
+            });
+        }
+
+        // ======================================
+        // ANALYTICS SIMPLE (OPCIONAL)
+        // ======================================
+        // Rastrear clics en WhatsApp
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-whatsapp')) {
+                console.log('Clic en: ' + e.target.closest('.product-card').querySelector('.product-name').textContent);
+            }
+        });
+    </script>
+</body>
+</html>
